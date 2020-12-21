@@ -7,7 +7,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit, AfterViewInit{
-  @ViewChild('ion-card') rectangle: ElementRef;
+  @ViewChild('rectangle') rectangle: ElementRef;
 
   private backgrounds: string[] = ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0.5)', 'rgba(255, 0, 0, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(255, 0, 255, 0.5)', 'rgba(0, 255, 255, 0.5)'];
   private currentColor: string = 'rgba(0, 0, 255, 0.5)';
