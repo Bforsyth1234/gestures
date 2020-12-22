@@ -1,5 +1,5 @@
 import { Gesture, GestureController } from '@ionic/angular';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-tab1',
@@ -7,34 +7,30 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit, AfterViewInit{
-  @ViewChild('rectangle') rectangle: ElementRef;
+  @ViewChild('rectangle', { static: true, read: ElementRef }) rectangle: ElementRef;
 
   private backgrounds: string[] = ['rgba(0, 0, 255, 0.5)', 'rgba(0, 255, 0.5)', 'rgba(255, 0, 0, 0.5)', 'rgba(255, 255, 0, 0.5)', 'rgba(255, 0, 255, 0.5)', 'rgba(0, 255, 255, 0.5)'];
   private currentColor: string = 'rgba(0, 0, 255, 0.5)';
   private lastOnStart: number = 0;
   private DOUBLE_CLICK_THRESHOLD: number = 500;
+  private gesture;
   constructor(private gestureCtrl: GestureController) {}
   ngOnInit() {
 
   }
 
   ngAfterViewInit(): void {
-    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-    //Add 'implements AfterViewInit' to the class.
-    console.log('this.rectangle = ');
-    console.log(this.rectangle);
-    const gesture = this.gestureCtrl.create({
+    this.gesture = this.gestureCtrl.create({
       gestureName: 'doubleTap',
       el: this.rectangle.nativeElement,
       threshold: 0,
       onStart: () => { this.onStart(); }
-    });
+    }, true);
   
-    gesture.enable();
+    this.gesture.enable();
   }
   
   private onStart() {
-    console.log('test = ');
     const now = Date.now();
   
     if (Math.abs(now - this.lastOnStart) <= this.DOUBLE_CLICK_THRESHOLD) {
