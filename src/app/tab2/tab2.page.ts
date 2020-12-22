@@ -22,7 +22,7 @@ export class Tab2Page {
       threshold: 0,
       onStart: () => { this.onStart();},
       onMove: ev => this.onMoveHandler(ev),
-      onEnd: ev => {this.onEnd()}
+      onEnd: () => {this.onEnd()}
     }, true);
   
     this.gesture.enable();
